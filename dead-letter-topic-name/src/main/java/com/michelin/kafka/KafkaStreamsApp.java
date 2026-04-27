@@ -18,23 +18,14 @@
  */
 package com.michelin.kafka;
 
-import java.util.HashMap;
-import java.util.Map;
-import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Named;
 import org.apache.kafka.streams.kstream.Produced;
-import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.kafka.annotation.KafkaStreamsDefaultConfiguration;
-import org.springframework.kafka.config.KafkaStreamsConfiguration;
-import org.springframework.kafka.streams.KafkaStreamsDeadLetterDestinationResolver;
-import org.springframework.kafka.streams.RecoveringDeserializationExceptionHandler;
-import org.springframework.kafka.streams.RecoveringProcessingExceptionHandler;
-import org.springframework.kafka.streams.RecoveringProductionExceptionHandler;
+import org.springframework.kafka.config.StreamsBuilderFactoryBeanConfigurer;
 import org.springframework.kafka.support.serializer.JacksonJsonSerde;
 import org.springframework.stereotype.Service;
 
@@ -42,44 +33,21 @@ import org.springframework.stereotype.Service;
 public class KafkaStreamsApp {
 
     /**
-     * Sets a dead letter destination resolver for all recovering exception handlers.
+     * Set the dead letter topic name programmatically as an alternative to {@code application.yml}:
      *
-     * @param kafkaProperties The Kafka properties.
-     * @param resolver The dead letter destination resolver.
-     * @return The Kafka Streams configuration.
-     */
-    @Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
-    public KafkaStreamsConfiguration configs(
-            KafkaProperties kafkaProperties, KafkaStreamsDeadLetterDestinationResolver resolver) {
-        Map<String, Object> props = new HashMap<>(kafkaProperties.buildStreamsProperties());
-        props.put(RecoveringDeserializationExceptionHandler.DLQ_DESTINATION_RESOLVER, resolver);
-        props.put(RecoveringProcessingExceptionHandler.DLQ_DESTINATION_RESOLVER, resolver);
-        props.put(RecoveringProductionExceptionHandler.DLQ_DESTINATION_RESOLVER, resolver);
-        return new KafkaStreamsConfiguration(props);
-    }
-
-    /**
-     * Defines a dead letter destination resolver that routes records based on value, exception, or processor node.
+     * <pre>{@code
+     * spring:
+     *   kafka:
+     *     streams:
+     *       properties:
+     *         errors.dead.letter.queue.topic.name: "default-dlq-topic"
+     * }</pre>
      *
-     * @return The dead letter destination resolver.
+     * @return The streams builder factory
      */
     @Bean
-    public KafkaStreamsDeadLetterDestinationResolver resolver() {
-        return (context, record, exception) -> {
-            if (record.value() instanceof DeliveryBooked deliveryBooked && deliveryBooked.numberOfTires() == null) {
-                return new TopicPartition("null-number-of-tires-dlq-topic", -1);
-            }
-
-            if (exception instanceof InvalidDeliveryException) {
-                return new TopicPartition("invalid-delivery-dlq-topic", -1);
-            }
-
-            if (context.processorNodeId().equals("select-key-processor")) {
-                return new TopicPartition("select-key-processor-dlq-topic", -1);
-            }
-
-            return new TopicPartition("default-dlq-topic", 0);
-        };
+    public StreamsBuilderFactoryBeanConfigurer streamsBuilderFactoryBeanConfigurer() {
+        return sfb -> sfb.setDeadLetterTopicName("default-dlq-topic");
     }
 
     /**

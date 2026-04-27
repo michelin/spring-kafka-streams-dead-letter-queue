@@ -17,7 +17,7 @@
         <module>dead-letter-destination-resolver</module>
         <module>dead-letter-publishing-recoverer</module>
         <module>dead-letter-topic-name</module>
-        <module>recovery-exception-handlers</module>
+        <module>recovering-exception-handlers</module>
     </modules>
 
     <properties>
@@ -25,7 +25,7 @@
         <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
         <java.version>25</java.version>
         <jib-maven-plugin.version>3.5.1</jib-maven-plugin.version>
-        <palantir.version>2.82.0</palantir.version>
+        <palantir.version>2.90.0</palantir.version>
         <sonar-maven-plugin.version>5.6.0.6792</sonar-maven-plugin.version>
         <spotless-maven-plugin.version>3.4.0</spotless-maven-plugin.version>
     </properties>
@@ -42,15 +42,15 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-            <!--<version>4.1.0-SNAPSHOT</version>-->
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-kafka-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>4.1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>

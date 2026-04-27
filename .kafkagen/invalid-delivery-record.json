@@ -3,11 +3,12 @@
     "topic": "delivery-booked-topic",
     "key": "DEL12345",
     "headers": {
-      "deliveryMetadata": "F8L3V9"
+      "deliveryMetadata": "R4J6T8"
     },
     "value": {
       "deliveryId": "DEL12345",
       "truckId": "TRK56789",
+      "numberOfTires": -10,
       "destination": "Bordeaux"
     }
   }

@@ -59,10 +59,10 @@ services:
       'cub kafka-ready -b broker:29092 1 300 && \
       kafka-topics --bootstrap-server broker:29092 --create --topic delivery-booked-topic'
 
-  spring-kafka-streams-recovery-exception-handlers:
-    image: michelin/spring-kafka-streams-dead-letter-queue:recovery-exception-handlers-1.0.0
-    hostname: spring-kafka-streams-recovery-exception-handlers
-    container_name: spring-kafka-streams-recovery-exception-handlers
+  spring-kafka-streams-dead-letter-topic-name:
+    image: michelin/spring-kafka-streams-dead-letter-queue:dead-letter-topic-name-1.0.0
+    hostname: spring-kafka-streams-dead-letter-topic-name
+    container_name: spring-kafka-streams-dead-letter-topic-name
     networks:
       - spring-kafka-streams-dead-letter-queue
     depends_on:

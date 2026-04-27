@@ -2,6 +2,9 @@
   {
     "topic": "delivery-booked-topic",
     "key": "DEL001",
+    "headers": {
+      "deliveryMetadata": "X7K9P2"
+    },
     "value": {
       "deliveryId": "DEL001",
       "truckId": "TRK001",
@@ -12,6 +15,9 @@
   {
     "topic": "delivery-booked-topic",
     "key": "DEL002",
+    "headers": {
+      "deliveryMetadata": "M3B8W1"
+    },
     "value": {
       "deliveryId": "DEL002",
       "truckId": "TRK002",

@@ -1,6 +1,6 @@
-# Recovery Exception Handlers
+# Recovering Exception Handlers
 
-This module demonstrates how to programmatically configure the recovery exception handlers introduced in Spring Kafka 4.1, 
+This module demonstrates how to programmatically configure the recovering exception handlers introduced in Spring Kafka 4.1, 
 with no routing to a dead letter topic, but instead stopping the stream in case of errors.
 
 ## Prerequisites
@@ -29,7 +29,7 @@ This will start the following services in Docker:
 
 - Kafka Broker
 - Control Center
-- Kafka Streams Recovery Exception Handlers
+- Kafka Streams Recovering Exception Handlers
 
 ## Try It Out
 

@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: "dead-letter-topic-name"
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    streams:
+      application-id: "dead-letter-topic-name"
+      client-id: "dead-letter-topic-name"
+      state-dir: "/tmp/spring-kafka-dead-letter-queue/dead-letter-topic-name"
+      properties:
+        deserialization.exception.handler: "org.springframework.kafka.streams.RecoveringDeserializationExceptionHandler"
+        processing.exception.handler: "org.springframework.kafka.streams.RecoveringProcessingExceptionHandler"
+        production.exception.handler: "org.springframework.kafka.streams.RecoveringProductionExceptionHandler"

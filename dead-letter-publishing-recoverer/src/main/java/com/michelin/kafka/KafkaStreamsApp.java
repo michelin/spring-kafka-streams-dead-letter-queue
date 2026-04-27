@@ -31,7 +31,10 @@ import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaStreamsDefaultConfiguration;
 import org.springframework.kafka.config.KafkaStreamsConfiguration;
-import org.springframework.kafka.streams.KafkaStreamsDeadLetterDestinationResolver;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
 import org.springframework.kafka.streams.RecoveringDeserializationExceptionHandler;
 import org.springframework.kafka.streams.RecoveringProcessingExceptionHandler;
 import org.springframework.kafka.streams.RecoveringProductionExceptionHandler;
@@ -42,44 +45,52 @@ import org.springframework.stereotype.Service;
 public class KafkaStreamsApp {
 
     /**
-     * Sets a dead letter destination resolver for all recovering exception handlers.
+     * Sets a dead letter publishing recoverer for all recovering exception handlers.
      *
      * @param kafkaProperties The Kafka properties.
-     * @param resolver The dead letter destination resolver.
+     * @param recoverer The dead letter publishing recoverer.
      * @return The Kafka Streams configuration.
      */
     @Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
-    public KafkaStreamsConfiguration configs(
-            KafkaProperties kafkaProperties, KafkaStreamsDeadLetterDestinationResolver resolver) {
+    public KafkaStreamsConfiguration configs(KafkaProperties kafkaProperties, DeadLetterPublishingRecoverer recoverer) {
         Map<String, Object> props = new HashMap<>(kafkaProperties.buildStreamsProperties());
-        props.put(RecoveringDeserializationExceptionHandler.DLQ_DESTINATION_RESOLVER, resolver);
-        props.put(RecoveringProcessingExceptionHandler.DLQ_DESTINATION_RESOLVER, resolver);
-        props.put(RecoveringProductionExceptionHandler.DLQ_DESTINATION_RESOLVER, resolver);
+        props.put(RecoveringDeserializationExceptionHandler.RECOVERER, recoverer);
+        props.put(RecoveringProcessingExceptionHandler.RECOVERER, recoverer);
+        props.put(RecoveringProductionExceptionHandler.RECOVERER, recoverer);
         return new KafkaStreamsConfiguration(props);
     }
 
     /**
-     * Defines a dead letter destination resolver that routes records based on value, exception, or processor node.
+     * Creates the producer factory.
      *
-     * @return The dead letter destination resolver.
+     * @param kafkaProperties The Kafka properties.
+     * @return The producer factory.
      */
     @Bean
-    public KafkaStreamsDeadLetterDestinationResolver resolver() {
-        return (context, record, exception) -> {
-            if (record.value() instanceof DeliveryBooked deliveryBooked && deliveryBooked.numberOfTires() == null) {
-                return new TopicPartition("null-number-of-tires-dlq-topic", -1);
-            }
+    public ProducerFactory<byte[], byte[]> producerFactory(KafkaProperties kafkaProperties) {
+        return new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties());
+    }
 
-            if (exception instanceof InvalidDeliveryException) {
-                return new TopicPartition("invalid-delivery-dlq-topic", -1);
-            }
+    /**
+     * Creates the Kafka template.
+     *
+     * @param producerFactory The producer factory.
+     * @return The Kafka template.
+     */
+    @Bean
+    public KafkaTemplate<byte[], byte[]> kafkaTemplate(ProducerFactory<byte[], byte[]> producerFactory) {
+        return new KafkaTemplate<>(producerFactory);
+    }
 
-            if (context.processorNodeId().equals("select-key-processor")) {
-                return new TopicPartition("select-key-processor-dlq-topic", -1);
-            }
-
-            return new TopicPartition("default-dlq-topic", 0);
-        };
+    /**
+     * Creates the dead letter publishing recoverer.
+     *
+     * @param kafkaTemplate The Kafka template.
+     * @return The dead letter publishing recoverer.
+     */
+    @Bean
+    public DeadLetterPublishingRecoverer recoverer(KafkaTemplate<byte[], byte[]> kafkaTemplate) {
+        return new DeadLetterPublishingRecoverer(kafkaTemplate, (_, _) -> new TopicPartition("default-dlq-topic", 0));
     }
 
     /**

@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: "dead-letter-publishing-recoverer"
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    producer:
+      key-serializer: "org.apache.kafka.common.serialization.ByteArraySerializer"
+      value-serializer: "org.apache.kafka.common.serialization.ByteArraySerializer"
+    streams:
+      application-id: "dead-letter-publishing-recoverer"
+      client-id: "dead-letter-publishing-recoverer"
+      state-dir: "/tmp/spring-kafka-dead-letter-queue/dead-letter-publishing-recoverer"
+      properties:
+        deserialization.exception.handler: "org.springframework.kafka.streams.RecoveringDeserializationExceptionHandler"
+        processing.exception.handler: "org.springframework.kafka.streams.RecoveringProcessingExceptionHandler"
+        production.exception.handler: "org.springframework.kafka.streams.RecoveringProductionExceptionHandler"

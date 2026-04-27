@@ -7,5 +7,5 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>recovery-exception-handlers</artifactId>
+    <artifactId>recovering-exception-handlers</artifactId>
 </project>

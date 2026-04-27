@@ -25,6 +25,7 @@ import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.KStream;
+import org.apache.kafka.streams.kstream.Named;
 import org.apache.kafka.streams.kstream.Produced;
 import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
 import org.springframework.context.annotation.Bean;
@@ -40,7 +41,7 @@ import org.springframework.stereotype.Service;
 public class KafkaStreamsApp {
 
     /**
-     * Sets recovery exception handlers programmatically as an alternative to {@code application.yml}:
+     * Sets recovering exception handlers programmatically as an alternative to {@code application.yml}:
      *
      * <pre>{@code
      * spring:
@@ -82,13 +83,16 @@ public class KafkaStreamsApp {
         KStream<String, DeliveryBooked> stream =
                 streamsBuilder.stream("delivery-booked-topic", Consumed.with(Serdes.String(), serde));
 
-        stream.filter((_, value) -> {
-                    if (value.numberOfTires() < 0) {
-                        throw new InvalidDeliveryException("Number of tires cannot be negative");
-                    }
+        stream.selectKey((_, value) -> value.deliveryId().concat(value.truckId()), Named.as("select-key-processor"))
+                .filter(
+                        (_, value) -> {
+                            if (value.numberOfTires() < 0) {
+                                throw new InvalidDeliveryException("Number of tires cannot be negative");
+                            }
 
-                    return value.numberOfTires() >= 10;
-                })
+                            return value.numberOfTires() >= 10;
+                        },
+                        Named.as("filter-tires-processor"))
                 .to("filtered-delivery-booked-topic", Produced.with(Serdes.String(), serde));
 
         return stream;

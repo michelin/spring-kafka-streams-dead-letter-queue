@@ -24,8 +24,8 @@ import org.springframework.kafka.annotation.EnableKafkaStreams;
 
 @EnableKafkaStreams
 @SpringBootApplication
-public class RecoveryExceptionHandlersApplication {
+public class RecoveringExceptionHandlersApplication {
     static void main(String[] args) {
-        SpringApplication.run(RecoveryExceptionHandlersApplication.class, args);
+        SpringApplication.run(RecoveringExceptionHandlersApplication.class, args);
     }
 }
