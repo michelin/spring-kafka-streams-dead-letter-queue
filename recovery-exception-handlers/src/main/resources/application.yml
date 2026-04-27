@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: "recovery-exception-handlers"
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    streams:
+      application-id: "recovery-exception-handlers"
+      client-id: "recovery-exception-handlers"
+      state-dir: "/tmp/spring-kafka-dead-letter-queue/recovery-exception-handlers"

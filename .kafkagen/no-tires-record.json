@@ -1,0 +1,12 @@
+[
+  {
+    "topic": "delivery-booked-topic",
+    "key": "DEL12345",
+    "timestamp": 0,
+    "value": {
+      "deliveryId": "DEL12345",
+      "truckId": "TRK56789",
+      "destination": "Bordeaux"
+    }
+  }
+]
