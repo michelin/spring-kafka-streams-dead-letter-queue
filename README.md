@@ -12,7 +12,7 @@ Work in progress...
 
 [Prerequisites](#prerequisites) • [Examples](#examples) • [Michelin IT Blog](#michelin-it-blog)
 
-Code sample for Spring-friendly Kafka Streams DLQ ([KIP-1034](https://cwiki.apache.org/confluence/display/KAFKA/KIP-1034%3A+Dead+letter+queue+in+Kafka+Streams)) in Spring Kafka.
+Code sample for Spring-friendly Kafka Streams Dead Letter Queue ([KIP-1034](https://cwiki.apache.org/confluence/display/KAFKA/KIP-1034%3A+Dead+letter+queue+in+Kafka+Streams)) in Spring Kafka.
 
 </div>
 
