@@ -2,7 +2,7 @@
 
 <img src=".readme/logo.png" alt="Apache Kafka"/>
 
-# Spring Kafka Streams Dead Letter Queue
+# Kafka Streams Dead Letter Queue in Spring Kafka
 
 [![GitHub Build](https://img.shields.io/github/actions/workflow/status/michelin/kafka-streams-processing-error-handling/build.yml?branch=main&logo=github&style=for-the-badge)](https://github.com/michelin/kafka-streams-processing-error-handling/actions/workflows/build.yml)
 [![Kafka Version](https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmichelin%2Fkafka-streams-processing-error-handling%2Fmain%2Fpom.xml&query=%2F*%5Blocal-name()%3D'project'%5D%2F*%5Blocal-name()%3D'properties'%5D%2F*%5Blocal-name()%3D'kafka-streams.version'%5D%2Ftext()&style=for-the-badge&logo=apachekafka&label=version)](https://github.com/michelin/kafka-streams-processing-error-handling/blob/main/pom.xml)
@@ -12,7 +12,7 @@
 
 Code samples for Kafka Streams DLQ in Spring Kafka.
 
-Spring Kafka 4.1 introduces Spring-friendly integration for Kafka Streams native DLQ ([KIP-1034](https://cwiki.apache.org/confluence/display/KAFKA/KIP-1034%3A+Dead+letter+queue+in+Kafka+Streams)). This example showcases the available options for using the DLQ in Kafka Streams applications powered by Spring Kafka.
+This example showcases the options introduced in Spring Kafka 4.1 for using the DLQ in Kafka Streams applications ([KIP-1034](https://cwiki.apache.org/confluence/display/KAFKA/KIP-1034%3A+Dead+letter+queue+in+Kafka+Streams)).
 
 </div>
 
@@ -24,12 +24,12 @@ Spring Kafka 4.1 introduces Spring-friendly integration for Kafka Streams native
 
 ## Examples
 
-| Module                                                                | Description                                             | Class & Properties                                                                                                               |
-|:----------------------------------------------------------------------|---------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
-| [Dead Letter Destination Resolver](/dead-letter-destination-resolver) | Spring-friendly dead letter queue routing logic         | `KafkaStreamsDeadLetterDestinationResolver`, `KafkaStreamsConfiguration`                                                         |
-| [Dead Letter Publishing Recoverer](/dead-letter-publishing-recoverer) | Original Spring Kafka dead letter queue                 | `DeadLetterPublishingRecoverer`, `KafkaStreamsConfiguration`                                                                     |
-| [Dead Letter Topic Name](/dead-letter-topic-name)                     | Straightforward send to a pre-defined dead letter topic | `StreamsBuilderFactoryBean`, `errors.dead.letter.queue.topic.name`                                                               |
-| [Recovering Exception Handlers](/recovering-exception-handlers)       | Use the provided recovering exception handlers          | `KafkaStreamsConfiguration`, `deserialization.exception.handler`, `processing.exception.handler`, `production.exception.handler` |
+| Module                                                                | Description                                                   | Class & Properties                                                                                                               |
+|:----------------------------------------------------------------------|---------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| [Dead Letter Destination Resolver](/dead-letter-destination-resolver) | Spring-friendly dead letter queue routing logic               | `KafkaStreamsDeadLetterDestinationResolver`, `KafkaStreamsConfiguration`                                                         |
+| [Dead Letter Publishing Recoverer](/dead-letter-publishing-recoverer) | Original Spring Kafka dead letter queue                       | `DeadLetterPublishingRecoverer`, `KafkaStreamsConfiguration`                                                                     |
+| [Dead Letter Topic Name](/dead-letter-topic-name)                     | Straightforward way to send to a predefined dead letter topic | `StreamsBuilderFactoryBean`, `errors.dead.letter.queue.topic.name`                                                               |
+| [Recovering Exception Handlers](/recovering-exception-handlers)       | Use the provided recovering exception handlers                | `KafkaStreamsConfiguration`, `deserialization.exception.handler`, `processing.exception.handler`, `production.exception.handler` |
 
 ## Michelin IT Blog
 
