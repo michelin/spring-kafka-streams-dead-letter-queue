@@ -12,9 +12,7 @@ Work in progress...
 
 [Prerequisites](#prerequisites) • [Examples](#examples) • [Michelin IT Blog](#michelin-it-blog)
 
-Code samples for Kafka Streams DLQ in Spring Kafka.
-
-This example showcases the options introduced in Spring Kafka 4.1 for using the DLQ in Kafka Streams applications ([KIP-1034](https://cwiki.apache.org/confluence/display/KAFKA/KIP-1034%3A+Dead+letter+queue+in+Kafka+Streams)).
+Code sample for Spring-friendly Kafka Streams DLQ ([KIP-1034](https://cwiki.apache.org/confluence/display/KAFKA/KIP-1034%3A+Dead+letter+queue+in+Kafka+Streams)) in Spring Kafka.
 
 </div>
 
