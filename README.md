@@ -7,7 +7,6 @@ Work in progress...
 # Kafka Streams Dead Letter Queue in Spring Kafka
 
 [![GitHub Build](https://img.shields.io/github/actions/workflow/status/michelin/spring-kafka-streams-dead-letter-queue/build.yml?branch=main&logo=github&style=for-the-badge)](https://github.com/michelin/spring-kafka-streams-dead-letter-queue/actions/workflows/build.yml)
-[![Kafka Version](https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmichelin%2Fspring-kafka-streams-dead-letter-queue%2Fmain%2Fpom.xml&query=%2F*%5Blocal-name()%3D'project'%5D%2F*%5Blocal-name()%3D'properties'%5D%2F*%5Blocal-name()%3D'kafka-streams.version'%5D%2Ftext()&style=for-the-badge&logo=apachekafka&label=version)](https://github.com/michelin/spring-kafka-streams-dead-letter-queue/blob/main/pom.xml)
 [![Spring Boot Version](https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmichelin%2Fspring-kafka-streams-dead-letter-queue%2Fmain%2Fpom.xml&query=%2F*%5Blocal-name()%3D'project'%5D%2F*%5Blocal-name()%3D'parent'%5D%2F*%5Blocal-name()%3D'version'%5D%2Ftext()&style=for-the-badge&logo=spring-boot&label=version)](https://github.com/michelin/spring-kafka-streams-dead-letter-queue/blob/main/pom.xml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache&style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
 
