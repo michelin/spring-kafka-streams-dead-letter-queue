@@ -24,7 +24,7 @@ Code sample for Spring-friendly Kafka Streams Dead Letter Queue ([KIP-1034](http
 
 ## Examples
 
-| Module                                                                | Description                                                   | Class & Properties                                                                                                               |
+| Module                                                                | Description                                                   | Class                                                                                                                            |
 |:----------------------------------------------------------------------|---------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
 | [Dead Letter Destination Resolver](/dead-letter-destination-resolver) | Spring-friendly dead letter queue routing logic               | `KafkaStreamsDeadLetterDestinationResolver`, `KafkaStreamsConfiguration`                                                         |
 | [Dead Letter Publishing Recoverer](/dead-letter-publishing-recoverer) | Original Spring Kafka dead letter queue                       | `DeadLetterPublishingRecoverer`, `KafkaStreamsConfiguration`                                                                     |

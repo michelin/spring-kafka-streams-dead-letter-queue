@@ -15,7 +15,7 @@ To compile and run this demo, you’ll need:
 
 To run the application manually:
 
-- Start a [Confluent Platform](https://docs.confluent.io/platform/current/quickstart/ce-docker-quickstart.html#step-1-download-and-start-cp) in a Docker environment.
+- Start a [Confluent Platform](https://docs.confluent.io/platform/current/get-started/platform-quickstart.html#step-1-download-and-start-cp) in a Docker environment.
 - Create a topic named `delivery-booked-topic`.
 - Start the Kafka Streams application.
 

@@ -150,7 +150,7 @@
                         </platforms>
                     </from>
                     <to>
-                        <image>docker.io/michelin/spring-kafka-dead-letter-queue:${project.artifactId}-${project.version}</image>
+                        <image>docker.io/michelin/spring-kafka-streams-dead-letter-queue:${project.artifactId}-${project.version}</image>
                     </to>
                 </configuration>
             </plugin>
