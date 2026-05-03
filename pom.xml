@@ -27,6 +27,9 @@
         <jib-maven-plugin.version>3.5.1</jib-maven-plugin.version>
         <palantir.version>2.90.0</palantir.version>
         <sonar-maven-plugin.version>5.6.0.6792</sonar-maven-plugin.version>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.organization>michelin</sonar.organization>
+        <sonar.projectKey>michelin_spring-kafka-streams-dead-letter-queue</sonar.projectKey>
         <spotless-maven-plugin.version>3.4.0</spotless-maven-plugin.version>
     </properties>
 
