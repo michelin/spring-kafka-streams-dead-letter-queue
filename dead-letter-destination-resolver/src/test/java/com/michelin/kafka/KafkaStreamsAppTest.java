@@ -127,7 +127,6 @@ class KafkaStreamsAppTest {
 
     @Test
     void shouldConfigureKafkaStreamsWithResolver() {
-        KafkaStreamsDeadLetterDestinationResolver resolver = kafkaStreamsApp.resolver();
         KafkaProperties kafkaProperties = new KafkaProperties();
         KafkaStreamsConfiguration config = kafkaStreamsApp.configs(kafkaProperties, resolver);
         Properties props = config.asProperties();
