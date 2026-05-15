@@ -32,15 +32,24 @@ import org.apache.kafka.streams.TestOutputTopic;
 import org.apache.kafka.streams.TopologyTestDriver;
 import org.apache.kafka.streams.test.TestRecord;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
+import org.springframework.kafka.config.KafkaStreamsConfiguration;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
+import org.springframework.kafka.streams.RecoveringDeserializationExceptionHandler;
+import org.springframework.kafka.streams.RecoveringProcessingExceptionHandler;
+import org.springframework.kafka.streams.RecoveringProductionExceptionHandler;
 import org.springframework.kafka.support.serializer.JacksonJsonDeserializer;
 import org.springframework.kafka.support.serializer.JacksonJsonSerializer;
 
 class KafkaStreamsAppTest {
+    private final KafkaStreamsApp kafkaStreamsApp = new KafkaStreamsApp();
 
     @Test
     void shouldFilterDeliveriesWithAtLeast10Tires() {
         StreamsBuilder streamsBuilder = new StreamsBuilder();
-        new KafkaStreamsApp().topology(streamsBuilder);
+        kafkaStreamsApp.topology(streamsBuilder);
 
         Properties props = new Properties();
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "test");
@@ -73,5 +82,19 @@ class KafkaStreamsAppTest {
 
             assertTrue(outputTopic.isEmpty());
         }
+    }
+
+    @Test
+    void shouldConfigureKafkaStreamsWithRecoverer() {
+        KafkaProperties kafkaProperties = new KafkaProperties();
+        ProducerFactory<byte[], byte[]> producerFactory = kafkaStreamsApp.producerFactory(kafkaProperties);
+        KafkaTemplate<byte[], byte[]> kafkaTemplate = kafkaStreamsApp.kafkaTemplate(producerFactory);
+        DeadLetterPublishingRecoverer recoverer = kafkaStreamsApp.recoverer(kafkaTemplate);
+        KafkaStreamsConfiguration config = kafkaStreamsApp.configs(kafkaProperties, recoverer);
+        Properties props = config.asProperties();
+
+        assertEquals(recoverer, props.get(RecoveringDeserializationExceptionHandler.RECOVERER));
+        assertEquals(recoverer, props.get(RecoveringProcessingExceptionHandler.RECOVERER));
+        assertEquals(recoverer, props.get(RecoveringProductionExceptionHandler.RECOVERER));
     }
 }

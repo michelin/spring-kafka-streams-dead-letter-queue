@@ -38,8 +38,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
+import org.springframework.kafka.config.KafkaStreamsConfiguration;
 import org.springframework.kafka.streams.KafkaStreamsDeadLetterDestinationResolver;
+import org.springframework.kafka.streams.RecoveringDeserializationExceptionHandler;
 import org.springframework.kafka.streams.RecoveringProcessingExceptionHandler;
+import org.springframework.kafka.streams.RecoveringProductionExceptionHandler;
 import org.springframework.kafka.support.serializer.JacksonJsonDeserializer;
 import org.springframework.kafka.support.serializer.JacksonJsonSerializer;
 
@@ -119,5 +123,17 @@ class KafkaStreamsAppTest {
             TestRecord<String, DeliveryBooked> dlqRecord = dlqTopic.readRecord();
             assertEquals("DEL002", dlqRecord.key());
         }
+    }
+
+    @Test
+    void shouldConfigureKafkaStreamsWithResolver() {
+        KafkaStreamsDeadLetterDestinationResolver resolver = kafkaStreamsApp.resolver();
+        KafkaProperties kafkaProperties = new KafkaProperties();
+        KafkaStreamsConfiguration config = kafkaStreamsApp.configs(kafkaProperties, resolver);
+        Properties props = config.asProperties();
+
+        assertEquals(resolver, props.get(RecoveringDeserializationExceptionHandler.DLQ_DESTINATION_RESOLVER));
+        assertEquals(resolver, props.get(RecoveringProcessingExceptionHandler.DLQ_DESTINATION_RESOLVER));
+        assertEquals(resolver, props.get(RecoveringProductionExceptionHandler.DLQ_DESTINATION_RESOLVER));
     }
 }
