@@ -1,7 +1,5 @@
 <div align="center">
 
-Work in progress...
-
 <img src=".readme/logo.png" alt="Apache Kafka"/>
 
 # Kafka Streams Dead Letter Queue in Spring Kafka
@@ -24,7 +22,7 @@ Code sample for Spring-friendly Kafka Streams Dead Letter Queue ([KIP-1034](http
 
 ## Examples
 
-| Module                                                                | Description                                                   | Class                                                                                                                            |
+| Module                                                                | Description                                                   | API                                                                                                                              |
 |:----------------------------------------------------------------------|---------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
 | [Dead Letter Destination Resolver](/dead-letter-destination-resolver) | Spring-friendly dead letter queue routing logic               | `KafkaStreamsDeadLetterDestinationResolver`, `KafkaStreamsConfiguration`                                                         |
 | [Dead Letter Publishing Recoverer](/dead-letter-publishing-recoverer) | Original Spring Kafka dead letter queue                       | `DeadLetterPublishingRecoverer`, `KafkaStreamsConfiguration`                                                                     |
