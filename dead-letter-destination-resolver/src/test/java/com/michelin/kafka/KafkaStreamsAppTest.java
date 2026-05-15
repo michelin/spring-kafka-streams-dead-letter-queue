@@ -16,13 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+package com.michelin.kafka;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-import com.michelin.kafka.DeliveryBooked;
-import com.michelin.kafka.InvalidDeliveryException;
-import com.michelin.kafka.KafkaStreamsApp;
 import java.util.Properties;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.TopicPartition;
@@ -106,6 +105,7 @@ class KafkaStreamsAppTest {
             inputTopic.pipeInput("DEL001", new DeliveryBooked("DEL001", "TRK001", 18, "Bordeaux"));
             inputTopic.pipeInput("DEL002", new DeliveryBooked("DEL002", "TRK002", -3, "Paris"));
             inputTopic.pipeInput("DEL003", new DeliveryBooked("DEL003", "TRK003", 10, "Lyon"));
+            inputTopic.pipeInput("DEL004", new DeliveryBooked("DEL004", "TRK004", 5, "Clermont-Ferrand"));
 
             assertEquals(2, outputTopic.getQueueSize());
             TestRecord<String, DeliveryBooked> first = outputTopic.readRecord();
