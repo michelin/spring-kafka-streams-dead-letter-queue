@@ -65,8 +65,8 @@ public class KafkaStreamsApp {
      */
     @Bean
     public KafkaStreamsDeadLetterDestinationResolver resolver() {
-        return (context, record, exception) -> {
-            if (record.value() instanceof DeliveryBooked deliveryBooked && deliveryBooked.numberOfTires() == null) {
+        return (context, message, exception) -> {
+            if (message.value() instanceof DeliveryBooked deliveryBooked && deliveryBooked.numberOfTires() == null) {
                 return new TopicPartition("null-number-of-tires-dlq-topic", -1);
             }
 
