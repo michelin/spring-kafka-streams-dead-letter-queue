@@ -22,7 +22,7 @@
 
     <properties>
         <jackson-databind.version>3.1.4</jackson-databind.version>
-        <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
         <java.version>25</java.version>
         <jib-maven-plugin.version>3.5.1</jib-maven-plugin.version>
         <palantir.version>2.90.0</palantir.version>
