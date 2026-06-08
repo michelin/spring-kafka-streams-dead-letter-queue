@@ -68,7 +68,14 @@ services:
       - init-kafka
     restart: unless-stopped
     environment:
-      BOOTSTRAP_SERVERS: 'broker:29092'
+      SPRING_APPLICATION_JSON: |
+        {
+          "spring": {
+            "kafka": {
+              "bootstrap-servers": "broker:29092"
+            }
+          }
+        }
 
 networks:
   spring-kafka-streams-dead-letter-queue:
