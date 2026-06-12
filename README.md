@@ -31,4 +31,4 @@ Code sample for Spring-friendly Kafka Streams Dead Letter Queue ([KIP-1034](http
 
 ## Michelin IT Blog
 
-_Soon to be published._
+The full article on processing error handling in Kafka Streams is available on the [Michelin IT Blog](https://blogit.michelin.io/kafka-streams-dead-letter-queue-in-spring-kafka-4-1).
