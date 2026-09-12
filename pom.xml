@@ -21,7 +21,6 @@
     </modules>
 
     <properties>
-        <jackson-databind.version>3.1.4</jackson-databind.version>
         <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
         <java.version>25</java.version>
         <jib-maven-plugin.version>3.5.2</jib-maven-plugin.version>
@@ -58,7 +57,6 @@
         <dependency>
             <groupId>tools.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson-databind.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
