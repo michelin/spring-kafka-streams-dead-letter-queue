@@ -1,5 +1,7 @@
 <div align="center">
 
+This project is a code sample accompanying the [Michelin IT Blog article on Kafka Streams Dead Letter Queue in Spring Kafka](https://blogit.michelin.io/kafka-streams-dead-letter-queue-in-spring-kafka-4-1). It is valid at least up to Spring Kafka 4.1.1, but will no longer evolve.
+
 <img src=".readme/logo.png" alt="Apache Kafka"/>
 
 # Kafka Streams Dead Letter Queue in Spring Kafka
